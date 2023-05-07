@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.mamun.post.exceptions.ResourceNotFoundException;
 import com.mamun.post.model.Post;
 import com.mamun.post.repo.PostRepo;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class PostController {
@@ -25,7 +27,7 @@ public class PostController {
     @Autowired
     private PostRepo postRepo;
 
-@PostMapping("/create")
+@PostMapping("/posts")
 public Post createPost(@RequestBody Post post){
     return this.postRepo.save(post);
 }
@@ -43,7 +45,7 @@ public Post createPost(@RequestBody Post post){
      return ResponseEntity.ok(post);
     }
 
-    @PutMapping("post/{id}")
+    @PutMapping("posts/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post newPost){
 
 
@@ -56,7 +58,7 @@ public Post createPost(@RequestBody Post post){
       return ResponseEntity.ok(updatedPost);
 
     }
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("posts/{id}")
     public void deletePost(@PathVariable Integer id){
       Post post=  this.postRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("not found "+id));
 
