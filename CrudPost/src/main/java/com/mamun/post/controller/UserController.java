@@ -1,0 +1,40 @@
+package com.mamun.post.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mamun.post.model.User;
+import com.mamun.post.service.UserService;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+    
+    @Autowired
+    private UserService userService;
+
+@PostMapping("/add")
+public User addUser(@RequestBody User user){
+    this.userService.addUser(user);
+    return user;
+    
+}
+
+
+
+@GetMapping("/get")
+public List<User> getAllUser(){
+   List<User> lists= this.userService.getAllUser();
+
+   return lists;
+}
+
+
+}

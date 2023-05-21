@@ -21,12 +21,13 @@ import com.mamun.post.repo.PostRepo;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class PostController {
     
     @Autowired
     private PostRepo postRepo;
 
+    
 @PostMapping("/posts")
 public Post createPost(@RequestBody Post post){
     return this.postRepo.save(post);
