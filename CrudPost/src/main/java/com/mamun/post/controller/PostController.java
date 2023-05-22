@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,23 +23,23 @@ import com.mamun.post.repo.PostRepo;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@EnableMethodSecurity
+@RequestMapping("/home/api")
 public class PostController {
     
     @Autowired
     private PostRepo postRepo;
-
-    
+@PreAuthorize("hasRole('ADMIN')")
 @PostMapping("/posts")
 public Post createPost(@RequestBody Post post){
     return this.postRepo.save(post);
 }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/posts")
     public List<Post> getAllPost(){
         return this.postRepo.findAll();
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/posts/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Integer id){
 
@@ -45,7 +47,7 @@ public Post createPost(@RequestBody Post post){
 
      return ResponseEntity.ok(post);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("posts/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post newPost){
 
@@ -59,6 +61,7 @@ public Post createPost(@RequestBody Post post){
       return ResponseEntity.ok(updatedPost);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("posts/{id}")
     public void deletePost(@PathVariable Integer id){
       Post post=  this.postRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("not found "+id));
