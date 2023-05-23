@@ -24,22 +24,22 @@ import com.mamun.post.repo.PostRepo;
 @CrossOrigin
 @RestController
 @EnableMethodSecurity
-@RequestMapping("/home/api")
+@RequestMapping("/api")
 public class PostController {
     
     @Autowired
     private PostRepo postRepo;
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 @PostMapping("/posts")
 public Post createPost(@RequestBody Post post){
     return this.postRepo.save(post);
 }
-    @PreAuthorize("hasRole('ADMIN')")
+   // @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/posts")
     public List<Post> getAllPost(){
         return this.postRepo.findAll();
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/posts/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Integer id){
 
@@ -47,7 +47,7 @@ public Post createPost(@RequestBody Post post){
 
      return ResponseEntity.ok(post);
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("posts/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post newPost){
 
@@ -61,7 +61,7 @@ public Post createPost(@RequestBody Post post){
       return ResponseEntity.ok(updatedPost);
 
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("posts/{id}")
     public void deletePost(@PathVariable Integer id){
       Post post=  this.postRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("not found "+id));

@@ -17,13 +17,13 @@ import com.mamun.post.service.UserService;
 
 @RestController
 @EnableMethodSecurity
-@RequestMapping("/home/user")
+@RequestMapping("/user")
 public class UserController {
     
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('NORMAL')")
+   // @PreAuthorize("hasRole('NORMAL')")
 @PostMapping("/add")
 public User addUser(@RequestBody User user){
     this.userService.addUser(user);
@@ -32,7 +32,7 @@ public User addUser(@RequestBody User user){
 }
 
 
-@PreAuthorize("hasRole('NORMAL')")
+//@PreAuthorize("hasRole('NORMAL')")
 @GetMapping("/get")
 public List<User> getAllUser(){
    List<User> lists= this.userService.getAllUser();
