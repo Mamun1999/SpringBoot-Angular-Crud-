@@ -20,12 +20,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.mamun.post.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private JwtAuthenticationFilter jwtFilter;
 @Autowired
 private CustomUserDetailsService customUserDetailsService;
     @Bean
@@ -98,9 +101,12 @@ public AuthenticationProvider daoAuthenticationProvider(){
               .and()
               .httpBasic();
               httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+              
+              
               
               httpSecurity.authenticationProvider(daoAuthenticationProvider());
+
+              httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
     DefaultSecurityFilterChain defaultSecurityFilterChain=httpSecurity.build();
     return defaultSecurityFilterChain;

@@ -31,19 +31,19 @@ public class CrudPostApplication implements CommandLineRunner {
 
 		
 
-		User user1=new User();
-		user1.setUsername("mamun");
-		user1.setEmail("mamun@gmail.com");
-		user1.setPassword(this.bCryptPasswordEncoder.encode("12345"));;
-		user1.setRole("ROLE_ADMIN");
-		this.userRepo.save(user1);
+		// User user1=new User();
+		// user1.setUsername("mamun");
+		// user1.setEmail("mamun@gmail.com");
+		// user1.setPassword(this.bCryptPasswordEncoder.encode("12345"));;
+		// user1.setRole("ROLE_ADMIN");
+		// this.userRepo.save(user1);
 
-		User user2=new User();
-		user2.setUsername("naim");
-		user2.setEmail("naim@gmail.com");
-		user2.setPassword(this.bCryptPasswordEncoder.encode("123"));;
-		user2.setRole("ROLE_NORMAL");
-		this.userRepo.save(user2);
+		// User user2=new User();
+		// user2.setUsername("naim");
+		// user2.setEmail("naim@gmail.com");
+		// user2.setPassword(this.bCryptPasswordEncoder.encode("123"));;
+		// user2.setRole("ROLE_NORMAL");
+		// this.userRepo.save(user2);
 
 
 	}
