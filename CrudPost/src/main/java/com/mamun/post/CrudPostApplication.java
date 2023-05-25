@@ -21,12 +21,16 @@ public class CrudPostApplication implements CommandLineRunner {
 
 		SpringApplication.run(CrudPostApplication.class, args);
 
+
  
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+
+		
+
 		User user1=new User();
 		user1.setUsername("mamun");
 		user1.setEmail("mamun@gmail.com");

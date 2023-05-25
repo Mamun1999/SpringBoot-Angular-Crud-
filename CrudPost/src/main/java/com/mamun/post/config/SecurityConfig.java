@@ -3,11 +3,15 @@ package com.mamun.post.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,11 +38,22 @@ private CustomUserDetailsService customUserDetailsService;
 //    }
 
 @Bean
-public DaoAuthenticationProvider daoAuthenticationProvider(){
+public AuthenticationManager authenticationManagerbean(AuthenticationConfiguration configuration) throws Exception{
+
+    return configuration.getAuthenticationManager();
+
+}
+
+
+
+@Bean
+public AuthenticationProvider daoAuthenticationProvider(){
      DaoAuthenticationProvider provider=new DaoAuthenticationProvider();
      provider.setUserDetailsService(customUserDetailsService);
      provider.setPasswordEncoder(passwordEncoder());
      return provider;
+
+     //authentication done
 }
 
     //  @Bean
@@ -53,12 +68,14 @@ public DaoAuthenticationProvider daoAuthenticationProvider(){
 
     // }
 
+    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         
         httpSecurity.csrf().disable()
               .authorizeHttpRequests()
-                .requestMatchers("/login")
+                .requestMatchers("/token")
               
               
              .permitAll()
@@ -80,6 +97,8 @@ public DaoAuthenticationProvider daoAuthenticationProvider(){
 
               .and()
               .httpBasic();
+              httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
               
               httpSecurity.authenticationProvider(daoAuthenticationProvider());
 
@@ -91,4 +110,6 @@ public DaoAuthenticationProvider daoAuthenticationProvider(){
              
              
     }
+
+ 
 }
