@@ -55,12 +55,13 @@ export class PostListComponent implements OnInit {
   deleteButton(id:Number){
     this.postService.deletePost(id).subscribe((data)=>{
       this.goToPostList();
+      location.reload()
       console.log(data)
     })
 
   }
   goToPostList(){
-    this.router.navigate([''])
+    this.router.navigate(['post'])
   }
 
   viewPost(id:Number){

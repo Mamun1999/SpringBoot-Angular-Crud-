@@ -37,6 +37,6 @@ export class UpdatePostComponent implements OnInit {
     )
   }
   goToPostList(){
-    this.route.navigate([''])
+    this.route.navigate(['post'])
   }
 }

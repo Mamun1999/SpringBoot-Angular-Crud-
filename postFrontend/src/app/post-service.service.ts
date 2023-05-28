@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PostServiceService {
-  private baseUrl="http://localhost:8183/api/v1/posts";
+  private baseUrl="http://localhost:8183/api/posts";
   post:Post;
   constructor(private httpClient:HttpClient) {  }
       
@@ -16,6 +16,7 @@ export class PostServiceService {
 
     return this.httpClient.post(`${this.baseUrl}`,post);
    }
+
 
    getPosts(): Observable<Post[]>{  
 

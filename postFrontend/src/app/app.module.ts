@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,14 @@ import { PostListComponent } from './post-list/post-list.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './auth.interceptor';
+
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     UpdatePostComponent,
     PostListComponent,
     ViewPostComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +36,13 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule
+
   ],
-  providers: [],
+  providers: [
+   {
+    provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true
+   }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

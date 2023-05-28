@@ -21,7 +21,7 @@ import com.mamun.post.exceptions.ResourceNotFoundException;
 import com.mamun.post.model.Post;
 import com.mamun.post.repo.PostRepo;
 
-@CrossOrigin
+// @CrossOrigin(origins = "*")
 @RestController
 @EnableMethodSecurity
 @RequestMapping("/api")
@@ -48,7 +48,7 @@ public Post createPost(@RequestBody Post post){
      return ResponseEntity.ok(post);
     }
     //@PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("posts/{id}")
+    @PutMapping("/posts/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post newPost){
 
 

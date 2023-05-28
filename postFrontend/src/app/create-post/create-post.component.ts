@@ -29,7 +29,7 @@ export class CreatePostComponent implements OnInit {
     }
 
     goToPostList(){
-      this.router.navigate([''])
+      this.router.navigate(['post'])
     }
      
     onSubmit(){

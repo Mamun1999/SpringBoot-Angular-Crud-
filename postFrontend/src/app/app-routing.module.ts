@@ -5,25 +5,38 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { UpdatePostComponent } from './update-post/update-post.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+
 
 const routes: Routes = [
 
 {
   path:'post/:id',
   component:ViewPostComponent
+  ,
+  canActivate: [AuthGuard]
+},
+{
+   path: 'login',
+   component: LoginComponent
 },
   {
-    path: '',
-    component:PostListComponent
+    path: 'post',
+    component:PostListComponent,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'create',
-    component: CreatePostComponent
+    component: CreatePostComponent,
+    canActivate: [AuthGuard]
     
   },
   {
     path: 'update/:id',
-    component:UpdatePostComponent
+    component:UpdatePostComponent,
+    canActivate: [AuthGuard]
 
   }
 ];

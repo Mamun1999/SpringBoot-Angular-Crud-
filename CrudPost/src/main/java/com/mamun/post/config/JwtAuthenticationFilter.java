@@ -18,12 +18,15 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 //after client first time login a token will be generated and send to  client. 
 // 2nd time when user come with token then user token will be validated in this class method  do Filternal internal
 // after successfull token checking then rquest will go to next step for accessing apis
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -62,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                  
                   if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
 
-                    UserDetails userDetails=  this.userDetailsService.loadUserByUsername(username);
+                    UserDetails userDetails =  this.userDetailsService.loadUserByUsername(username);
                     //got userdetails(name ,pass, authority) from username
                // checking main security that things we got from token is right or not
                if(this.jwtUtil.validateToken(jwtToken,userDetails))

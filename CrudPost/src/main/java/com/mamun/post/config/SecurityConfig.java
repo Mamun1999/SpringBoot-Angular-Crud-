@@ -1,6 +1,7 @@
 package com.mamun.post.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,10 +22,15 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.mamun.post.service.CustomUserDetailsService;
 
 @Configuration
+@EnableWebMvc
 @EnableWebSecurity
 public class SecurityConfig {
     @Autowired
@@ -77,6 +83,7 @@ public AuthenticationProvider daoAuthenticationProvider(){
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         
         httpSecurity.csrf().disable()
+        .cors().disable()
               .authorizeHttpRequests()
                 .requestMatchers("/token")
               
@@ -84,7 +91,7 @@ public AuthenticationProvider daoAuthenticationProvider(){
              .permitAll()
 
               
-                  .requestMatchers("/api/**")
+                  .requestMatchers("/api/posts/**")
                  .hasRole("ADMIN")
             
                  
@@ -115,6 +122,32 @@ public AuthenticationProvider daoAuthenticationProvider(){
             
              
              
+    }
+
+    @Bean
+    public FilterRegistrationBean coresFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOriginPattern("*");
+        corsConfiguration.addAllowedHeader("Authorization");
+        corsConfiguration.addAllowedHeader("Content-Type");
+        corsConfiguration.addAllowedHeader("Accept");
+        corsConfiguration.addAllowedMethod("POST");
+        corsConfiguration.addAllowedMethod("GET");
+        corsConfiguration.addAllowedMethod("DELETE");
+        corsConfiguration.addAllowedMethod("PUT");
+        corsConfiguration.addAllowedMethod("OPTIONS");
+        corsConfiguration.setMaxAge(3600L);
+
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+
+        bean.setOrder(-110);
+
+        return bean;
     }
 
  

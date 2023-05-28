@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mamun.post.model.User;
 import com.mamun.post.repo.UserRepo;
@@ -25,6 +27,7 @@ public class CrudPostApplication implements CommandLineRunner {
  
 	}
 
+	
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
@@ -47,5 +50,23 @@ public class CrudPostApplication implements CommandLineRunner {
 
 
 	}
+
+
+	
+// 	@Bean
+// 	public WebMvcConfigurer corsConfigurer(){
+    
+// 		return new WebMvcConfigurer() {
+// 			@Override
+// 			public void addCorsMappings(CorsRegistry registry) {
+// 				registry.addMapping("/**")
+// 					.allowedOrigins("http://localhost:4200"); // Add the allowed origin(s) for your Angular application
+// 					// .allowedMethods("GET", "POST", "PUT", "DELETE") // Add the allowed HTTP methods
+// 					// .allowedHeaders("*") // Add the allowed headers
+// 					// .allowCredentials(true); // Allow sending cookies along with the request
+// 			}
+// 		};
+// }
+
 
 }
